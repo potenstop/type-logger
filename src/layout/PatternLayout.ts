@@ -11,7 +11,7 @@
  * %msg:        日志文本
  * %n:          换行
  * @className PatternLayout
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/27 9:16
  */

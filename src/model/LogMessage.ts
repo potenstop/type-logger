@@ -3,7 +3,7 @@
  * 功能描述: log 消息bean对象
  *
  * @className LogMessage
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/25 17:33
  */

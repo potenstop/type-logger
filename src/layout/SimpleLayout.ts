@@ -3,7 +3,7 @@
  * 功能描述: 简单的记录器
  *
  * @className SimpleLayout
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/28 13:17
  */

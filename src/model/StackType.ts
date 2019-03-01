@@ -5,7 +5,7 @@ import { StackTypePathTypeEnum } from "../enum/StackTypePathTypeEnum";
  * 功能描述: stack类型对象
  *
  * @className StackType
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2018/12/20 20:45
  */

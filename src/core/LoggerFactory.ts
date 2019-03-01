@@ -3,7 +3,7 @@
  * 功能描述:
  *
  * @className LoggerFactory
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/25 15:05
  */

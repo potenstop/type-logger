@@ -3,7 +3,7 @@
  * 功能描述: 日志等级
  *
  * @className Level
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/26 9:10
  */

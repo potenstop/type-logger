@@ -3,7 +3,7 @@
  * 功能描述: 时间格式化对于的占位符号
  *
  * @className DatePatternsEnum
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/22 17:30
  */

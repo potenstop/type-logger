@@ -5,7 +5,7 @@
  * n:没有,h:有,a:匿名
  * n:正常模式 s: 工厂模式,p:原型模式,o:其他
  * @className StackTypeModeEnum
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2018/12/20 20:54
  * 1 n.no.nf: 如第一种  ''

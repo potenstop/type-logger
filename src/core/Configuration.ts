@@ -3,7 +3,7 @@
  * 功能描述:
  *
  * @className Configuration
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/25 14:50
  */
@@ -26,10 +26,10 @@ defaultConfig.root = new Root();
 defaultConfig.root.level = "INFO";
 defaultConfig.root.appenderRefs = [appenderRef];
 const defaultAppender = new  Appender();
-defaultAppender.class = "type-logger.appender.ConsoleAppender";
+defaultAppender.class = "type-slf4.appender.ConsoleAppender";
 defaultAppender.name = "default";
 defaultAppender.layout = new Layout();
-defaultAppender.layout.class = "type-logger.layout.SimpleLayout";
+defaultAppender.layout.class = "type-slf4.layout.SimpleLayout";
 defaultConfig.appenders = [defaultAppender];
 
 const appenderMaps = new Map<string, new (appender: Appender) => IAppender>().set("ConsoleAppender", ConsoleAppender);
@@ -66,7 +66,7 @@ export class Configuration {
      * @return
      */
     private check() {
-        const prefix = "type-logger check: ";
+        const prefix = "type-slf4 check: ";
         const levels = new Set(["TRACE", "DEBUG", "INFO", "WARN", "ERROR"]);
         this.appenderRealizeMap = new Map<string, Appender>();
 

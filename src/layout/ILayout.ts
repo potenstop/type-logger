@@ -3,7 +3,7 @@
  * 功能描述:
  *
  * @className ILayout
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/26 12:46
  */

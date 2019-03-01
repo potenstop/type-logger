@@ -3,7 +3,7 @@
  * 功能描述:
  *
  * @className JsonLayout
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/3/1 17:46
  */

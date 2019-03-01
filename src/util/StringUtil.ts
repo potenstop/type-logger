@@ -3,7 +3,7 @@
  * 功能描述: 字符串工具类
  *
  * @className StringUtil
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2018/12/24 12:51
  */

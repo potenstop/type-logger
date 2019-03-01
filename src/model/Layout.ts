@@ -3,7 +3,7 @@
  * 功能描述:
  *
  * @className Layout
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/28 13:20
  */

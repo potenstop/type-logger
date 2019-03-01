@@ -3,7 +3,7 @@
  * 功能描述: 星期和代号的对应
  *
  * @className DateWeekEnum
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2019/2/22 17:32
  */

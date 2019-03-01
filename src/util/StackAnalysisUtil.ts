@@ -113,7 +113,7 @@ import { StackType } from "../model/StackType";
  *
  * 功能描述: 堆栈信息解析工具类
  * @className StackAnalysisUtil
- * @projectName type-logger
+ * @projectName type-slf4
  * @author yanshaowen
  * @date 2018/12/20 20:24
  */

@@ -1,12 +1,12 @@
 {
-  "name": "type-logger",
-  "version": "0.0.1",
+  "name": "type-slf4",
+  "version": "0.0.2",
   "description": "typescript logger",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/potenstop/type-logger"
+    "url": "https://github.com/potenstop/type-slf4"
   },
   "keywords": [
     "typescript",
