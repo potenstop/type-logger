@@ -10,10 +10,16 @@
 import {Configuration} from "./Configuration";
 import {Logger} from "./Logger";
 import {ILogger} from "type-interface";
-console.log('=======')
+import * as path from "path";
 if (!Configuration.getConfigure()) {
-    // 加载项目的src目录的typelogger.json
-    console.log(process.cwd());
+    // 尝试加载项目的src目录的typelogger.json
+    try {
+        const config = require(path.join(process.cwd(), "src/typelogger.json"));
+        Configuration.configure(config);
+    } catch (e) {
+
+    }
+
 }
 // 加载配置
 export class LoggerFactory {

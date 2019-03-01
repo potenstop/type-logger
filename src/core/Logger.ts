@@ -50,8 +50,11 @@ export class Logger implements ILogger {
     private loggers: LoggerModel[];
     constructor(name: string) {
         this.name = name;
-        this.loggers = Configuration.getConfigure().getLoggerByName(name);
-        this.initAppendersLevel();
+        const configure = Configuration.getConfigure();
+        if (configure) {
+            this.loggers = configure.getLoggerByName(name);
+            this.initAppendersLevel();
+        }
     }
     private initAppendersLevel() {
         this.appendersLevel = new Map<string, Appender[]>();
@@ -135,6 +138,9 @@ export class Logger implements ILogger {
     }
 
     private exec(level: Level, msg: string, args: any[]) {
+        if (!this.appendersLevel) {
+            return;
+        }
         const appenders = this.appendersLevel.get(level.name);
         // build message
         const logMessage = Logger.buildMessage(level, msg, args);
