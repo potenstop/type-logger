@@ -6,11 +6,11 @@
   "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/potenstop/type-interface"
+    "url": "https://github.com/potenstop/type-logger"
   },
   "keywords": [
     "typescript",
-    "interface"
+    "logger"
   ],
   "files": [
     "src",
