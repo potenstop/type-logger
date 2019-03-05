@@ -150,7 +150,7 @@ export class Logger implements ILogger {
     }
     private static buildMessage(level: Level, msg: string, args: any[]) {
         const logMessage = new LogMessage();
-        logMessage.stackType = StackAnalysisUtil.parseStackAll(new Error().stack)[2];
+        logMessage.stackType = StackAnalysisUtil.parseStackAll(new Error().stack)[3];
         logMessage.level = level;
         logMessage.startTime = new Date();
         logMessage.pid = process.pid;

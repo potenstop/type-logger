@@ -18,6 +18,9 @@ import {ConsoleAppender} from "../appender/ConsoleAppender";
 import {SimpleLayout} from "../layout/SimpleLayout";
 import {PatternLayout} from "../layout/PatternLayout";
 import {ILayout} from "../layout/ILayout";
+import {JsonLayout} from "../layout/JsonLayout";
+import {DailyRollingFileAppender} from "../appender/DailyRollingFileAppender";
+import {RollingFileAppender} from "../appender/RollingFileAppender";
 const defaultConfig: Config = new Config();
 const appenderRef = new AppenderRef();
 appenderRef.ref = "default";
@@ -32,8 +35,14 @@ defaultAppender.layout = new Layout();
 defaultAppender.layout.class = "type-slf4.layout.SimpleLayout";
 defaultConfig.appenders = [defaultAppender];
 
-const appenderMaps = new Map<string, new (appender: Appender) => IAppender>().set("ConsoleAppender", ConsoleAppender);
-const layoutMaps = new Map<string, new (layout: Layout) => ILayout>().set("SimpleLayout", SimpleLayout).set("PatternLayout", PatternLayout);
+const appenderMaps = new Map<string, new (appender: Appender) => IAppender>()
+    .set("ConsoleAppender", ConsoleAppender)
+    .set("DailyRollingFileAppender", DailyRollingFileAppender)
+    .set("RollingFileAppender", RollingFileAppender);
+const layoutMaps = new Map<string, new (layout: Layout) => ILayout>()
+    .set("SimpleLayout", SimpleLayout)
+    .set("PatternLayout", PatternLayout)
+    .set("JsonLayout", JsonLayout);
 export class Configuration {
     private static configuration: Configuration;
     public config: Config;
@@ -160,9 +169,9 @@ export class Configuration {
      */
     public getLoggerByName(name: string) {
         const loggers: Logger[] = [];
-        const re = new RegExp(name);
         for (const logger of this.config.loggers) {
-            if (re.test(logger.name)) {
+            const re = new RegExp(logger.name);
+            if (re.test(name)) {
                 loggers.push(logger);
                 if (!logger.additivity) {
                     break;

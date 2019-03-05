@@ -1,18 +1,3 @@
-type-slf4是基于typescript开发的通用日志记录框架
-
-type-slf4支持的特性：
-- 自动加载配置(目前仅支持json)
-- 格式化输出日志
-- 按日期分割输出到日志文件
-
-
-# 入门
-## 安装
- `npm install type-slf4 --save`
-## 快速配置
-src/typelogger.json(会自动加载该路径的json文件) 也可以手动加载Configuration.configure(require("./typeslf4.json"));
-- @为当前项目的src目录
-```json
 {
   "appenders": [
     {
@@ -53,16 +38,3 @@ src/typelogger.json(会自动加载该路径的json文件) 也可以手动加载
     }]
   }
 }
-
-```
-## 使用
-```javascript 1.8
-const logger = LoggerFactory.getLogger("type-slf4.test.project.logger");
-logger.debug("111");
-```
-
-# 更新日志
-- 0.0.1 支持格式化输出日志
-- 0.0.2 项目改名
-- 0.0.3 支持按日志分割输出
-

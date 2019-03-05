@@ -17,4 +17,5 @@ export class Appender {
     public layout: Layout;
     public classObject: IAppender;
     public layoutObject: ILayout;
+    public appenderExt: object;
 }

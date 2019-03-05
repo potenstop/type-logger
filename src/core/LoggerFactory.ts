@@ -12,9 +12,9 @@ import {Logger} from "./Logger";
 import {ILogger} from "type-interface";
 import * as path from "path";
 if (!Configuration.getConfigure()) {
-    // 尝试加载项目的src目录的typelogger.json
+    // 尝试加载项目的src目录的typeslf4.json
     try {
-        const config = require(path.join(process.cwd(), "src/typelogger.json"));
+        const config = require(path.join(process.cwd(), "src/typeslf4.json"));
         Configuration.configure(config);
     } catch (e) {
 
