@@ -10,7 +10,7 @@ type-slf4支持的特性：
 ## 安装
  `npm install type-slf4 --save`
 ## 快速配置
-src/typelogger.json(会自动加载该路径的json文件) 也可以手动加载Configuration.configure(require("./typeslf4.json"));
+resources/typelogger.json(会自动加载该路径的json文件) 也可以手动加载Configuration.configure(require("./typeslf4.json"));
 - @为当前项目的目录
 ```json
 {
