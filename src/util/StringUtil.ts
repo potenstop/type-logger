@@ -7,6 +7,10 @@
  * @author yanshaowen
  * @date 2018/12/24 12:51
  */
+interface IRegExpMatchObject {
+    value: string;
+    index: number;
+}
 export class StringUtil {
     /**
      * 方法功能描述: 判断是否为null或undefined
@@ -53,5 +57,35 @@ export class StringUtil {
      */
     public static isNotBank(str: string): boolean {
         return !StringUtil.isBank(str);
+    }
+    /**
+     * 方法功能描述: 找到对应的匹配值和对应的下标
+     * @author yanshaowen
+     * @date 2018/12/24 13:00
+     * @param str        字符串
+     * @param re         匹配
+     * @return boolean
+     */
+    public static match(str: string, re: string | RegExp): IRegExpMatchObject[] | null {
+        const matchArray = str.match(re);
+        if (!matchArray) {
+            return null;
+        }
+        const result: IRegExpMatchObject[] = [];
+        let sourceIndex = 0;
+        let matchStr = str;
+
+        matchArray.forEach((value) => {
+            const index = matchStr.indexOf(value);
+            if (index !== -1) {
+                result.push({
+                    value,
+                    index: sourceIndex + index,
+                });
+                sourceIndex += index + value.length;
+                matchStr = str.substring(sourceIndex);
+            }
+        });
+        return result;
     }
 }

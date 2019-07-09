@@ -2,6 +2,7 @@ import {Layout} from "../model/Layout";
 import {ILayout} from "./ILayout";
 import {LogMessage} from "../model/LogMessage";
 import {DateUtil} from "../util/DateUtil";
+import {StringUtil} from "../util/StringUtil";
 
 /**
  *
@@ -39,20 +40,24 @@ export class PatternLayoutBase implements ILayout {
         }
     }
     public static variableReplace(str: string, variables: object) {
-        const matchList = str.match(PatternLayoutBase.variableRe);
+        const matchList = StringUtil.match(str, PatternLayoutBase.variableRe);
         if (!Array.isArray(matchList) || matchList.length === 0) {
             return str;
         }
         const matchSet = new Set(matchList);
-        for (let v of matchSet) {
-            v = v as string;
-            const variableKey = v.match(PatternLayoutBase.keyRe)[1];
-            let variableValue = variables[variableKey];
-            if (typeof variableValue === "string" && variableKey !== "n") {
-                variableValue = variableValue.replace(/(\r\n)|(\n)/g, "\\n");
+        let msgResult = str;
+        let currentIndex = 0;
+        let ofI = 0;
+        for (const v of matchSet) {
+            if (ofI === 0) {
+                msgResult = "";
             }
+            ofI ++;
+
+            const variableKey = v.value.match(PatternLayoutBase.keyRe)[1];
+            let variableValue = variables[variableKey];
             if (variableKey === "date") {
-                const params = v.slice(5, v.length);
+                const params = v.value.slice(5, v.value.length);
                 if (variableValue instanceof Date) {
                     let format = "yyyy-mm-dd HH:mm:ss.S";
                     if (params.length > 0) {
@@ -74,14 +79,36 @@ export class PatternLayoutBase implements ILayout {
                     }
                 });
                 variableValue = ` ${variableValue.stack}\n${values.toString()} `;
-                variableValue = variableValue.replace(/(\r\n)|(\n)/g, "\\n");
-            } else if (typeof variableValue === "object") {
-                variableValue = JSON.stringify(variableValue);
+            } else if (variableValue === null) {
+                variableValue = null;
+            } else if (variableValue === undefined) {
+                variableValue = undefined;
+            } else if (typeof variableValue === "object" && "toString" in variableValue) {
+                variableValue = variableValue.toString();
             }
-            const re = new RegExp(v, "gm");
-            str = str.replace(re, variableValue);
+            if (typeof variableValue === "string" && variableKey !== "n") {
+                variableValue = variableValue.replace(/(\r\n)|(\n)/g, "\\n");
+            }
+            // const re = new RegExp(v, "gm");
+            // str = str.replace(re, variableValue);
+            msgResult += str.substring(currentIndex, v.index);
+            if (variableValue === null) {
+                msgResult += "null";
+            } else if (variableValue === undefined) {
+                msgResult += "undefined";
+            } else {
+                try {
+                    msgResult += variableValue.toString();
+                } catch (e) {
+                    msgResult += variableValue;
+                }
+            }
+            currentIndex = v.index + v.value.length;
         }
-        return str;
+        if (currentIndex < str.length) {
+            msgResult += str.substring(currentIndex, str.length);
+        }
+        return msgResult;
 
     }
 }
