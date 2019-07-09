@@ -32,6 +32,7 @@ export class PatternLayoutBase implements ILayout {
                 row: logMessage.stackType.row,
                 msg: logMessage.data,
                 n: "\n",
+                error: logMessage.error,
             });
         } catch (e) {
             return e.message + e.stack;
@@ -47,7 +48,9 @@ export class PatternLayoutBase implements ILayout {
             v = v as string;
             const variableKey = v.match(PatternLayoutBase.keyRe)[1];
             let variableValue = variables[variableKey];
-
+            if (typeof variableValue === "string" && variableKey !== "n") {
+                variableValue = variableValue.replace(/(\r\n)|(\n)/g, "\\n");
+            }
             if (variableKey === "date") {
                 const params = v.slice(5, v.length);
                 if (variableValue instanceof Date) {
@@ -70,7 +73,8 @@ export class PatternLayoutBase implements ILayout {
                         }
                     }
                 });
-                variableValue = `{ ${variableValue.stack} \n    ${values.toString()} } `;
+                variableValue = ` ${variableValue.stack}\n${values.toString()} `;
+                variableValue = variableValue.replace(/(\r\n)|(\n)/g, "\\n");
             } else if (typeof variableValue === "object") {
                 variableValue = JSON.stringify(variableValue);
             }

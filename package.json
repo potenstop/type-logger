@@ -1,6 +1,6 @@
 {
   "name": "type-slf4",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "typescript logger",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -23,7 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^11.9.5",
-    "type-interface": "0.0.2"
+    "type-interface": "0.0.3"
   },
   "engines": {
     "node": ">= 9.0.0"

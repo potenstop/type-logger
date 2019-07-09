@@ -15,17 +15,20 @@
  * @author yanshaowen
  * @date 2019/2/27 9:16
  */
-import {ILayout} from "./ILayout";
 import {LogMessage} from "../model/LogMessage";
-import {DateUtil} from "../util/DateUtil";
 import {Layout} from "../model/Layout";
 import {PatternLayoutBase} from "./PatternLayoutBase";
+import {StackAnalysisUtil} from "../util/StackAnalysisUtil";
 
 export class PatternLayout extends PatternLayoutBase {
     constructor(layout: Layout) {
         super(layout);
     }
     public toString(logMessage: LogMessage): string {
-        return super.toString(logMessage);
+        let errorStack = "";
+        if (logMessage.error) {
+            errorStack = logMessage.error.stack;
+        }
+        return super.toString(logMessage) + errorStack;
     }
 }

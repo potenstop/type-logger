@@ -130,10 +130,10 @@ export class Logger implements ILogger {
     }
 
     public warn(msg: string): void;
-    public warn(msg: string, args: any): void;
-    public warn(msg: string, ...args: any[]): void;
+    public warn(msg: string, args: Object): void;
+    public warn(msg: string, ...args: Object[]): void;
     public warn(msg: string, e: Error): void;
-    public warn(msg: string, ...args: Array<any | Error>): void {
+    public warn(msg: string, ...args: Array<Object | Error>): void {
         this.exec(WARN_LEVEL, msg, args);
     }
 
@@ -154,10 +154,50 @@ export class Logger implements ILogger {
         logMessage.level = level;
         logMessage.startTime = new Date();
         logMessage.pid = process.pid;
-        logMessage.data = msg;
-        if (args.length === 1 && args[0] instanceof Error) {
+        // logMessage.data = msg;
+        if (args[0] instanceof Error) {
             logMessage.error = args[0];
+            args.shift();
         }
+        // 把{} 替换为对应的值
+        const indexResult = Logger.indexes(msg, "{}");
+        let msgResult = msg;
+        let currentIndex = 0;
+        indexResult.forEach((index, idx) => {
+            if (idx === 0) {
+                msgResult = "";
+            }
+            let currentArg = "{}";
+            if (idx < args.length) {
+                currentArg = args[idx];
+            }
+            msgResult += msg.substring(currentIndex, index);
+            if (currentArg === null) {
+                msgResult += "null";
+            } else if (currentArg === undefined) {
+                msgResult += "undefined";
+            } else {
+                try {
+                    msgResult += currentArg.toString();
+                } catch (e) {
+                    msgResult += currentArg;
+                }
+            }
+            currentIndex = index + 2;
+        });
+        if (currentIndex < msg.length) {
+            msgResult += msg.substring(currentIndex, msg.length);
+        }
+        logMessage.data = msgResult;
         return logMessage;
+    }
+    private static indexes(str, find): number[] {
+        const result = [];
+        for (let i = 0; i < str.length; ++i) {
+            if (str.substring(i, i + find.length) === find) {
+                result.push(i);
+            }
+        }
+        return result;
     }
 }
