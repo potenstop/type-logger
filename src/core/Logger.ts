@@ -161,12 +161,9 @@ export class Logger implements ILogger {
         }
         // 把{} 替换为对应的值
         const indexResult = Logger.indexes(msg, "{}");
-        let msgResult = msg;
+        let msgResult = "";
         let currentIndex = 0;
         indexResult.forEach((index, idx) => {
-            if (idx === 0) {
-                msgResult = "";
-            }
             let currentArg = "{}";
             if (idx < args.length) {
                 currentArg = args[idx];

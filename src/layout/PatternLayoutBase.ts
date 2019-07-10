@@ -45,13 +45,10 @@ export class PatternLayoutBase implements ILayout {
             return str;
         }
         const matchSet = new Set(matchList);
-        let msgResult = str;
+        let msgResult = "";
         let currentIndex = 0;
         let ofI = 0;
         for (const v of matchSet) {
-            if (ofI === 0) {
-                msgResult = "";
-            }
             ofI ++;
 
             const variableKey = v.value.match(PatternLayoutBase.keyRe)[1];
@@ -79,18 +76,12 @@ export class PatternLayoutBase implements ILayout {
                     }
                 });
                 variableValue = ` ${variableValue.stack}\n${values.toString()} `;
-            } else if (variableValue === null) {
-                variableValue = null;
-            } else if (variableValue === undefined) {
-                variableValue = undefined;
             } else if (typeof variableValue === "object" && "toString" in variableValue) {
                 variableValue = variableValue.toString();
             }
             if (typeof variableValue === "string" && variableKey !== "n") {
                 variableValue = variableValue.replace(/(\r\n)|(\n)/g, "\\n");
             }
-            // const re = new RegExp(v, "gm");
-            // str = str.replace(re, variableValue);
             msgResult += str.substring(currentIndex, v.index);
             if (variableValue === null) {
                 msgResult += "null";

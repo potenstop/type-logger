@@ -1,13 +1,6 @@
 {
-  "appenders": [
-    {
+  "appenders": [{
       "name": "CONSOLE",
-      "class": "ConsoleAppender",
-      "layout": {
-        "class": "SimpleLayout"
-      }
-    }, {
-      "name": "FORMAT_CONSOLE",
       "class": "ConsoleAppender",
       "layout": {
         "class": "PatternLayout",
@@ -27,14 +20,12 @@
     }
   ],
   "loggers": [
-    {"name": "type-slf4.*", "level": "TRACE", "additivity": false, "appenderRefs":  [{"ref": "APPLICATION"}, {"ref": "FORMAT_CONSOLE"}]}
+    {"name": "type-slf4.*", "level": "TRACE", "additivity": false, "appenderRefs":  [{"ref": "CONSOLE"}, {"ref": "APPLICATION"}]}
   ],
   "root": {
     "level": "TRACE",
     "appenderRefs": [{
       "ref": "CONSOLE"
-    }, {
-      "ref": "FORMAT_CONSOLE"
     }]
   }
 }

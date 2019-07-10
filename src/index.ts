@@ -6,3 +6,4 @@ export * from "./layout/ILayout";
 export * from "./layout/JsonLayout";
 export * from "./layout/PatternLayout";
 export * from "./layout/SimpleLayout";
+export * from "./core/Configuration";

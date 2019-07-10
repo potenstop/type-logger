@@ -18,7 +18,6 @@
 import {LogMessage} from "../model/LogMessage";
 import {Layout} from "../model/Layout";
 import {PatternLayoutBase} from "./PatternLayoutBase";
-import {StackAnalysisUtil} from "../util/StackAnalysisUtil";
 
 export class PatternLayout extends PatternLayoutBase {
     constructor(layout: Layout) {
