@@ -100,7 +100,7 @@ export class PatternLayoutBase implements ILayout {
                 perHasMark = true;
                 msgResult += str.substring(currentIndex, v.index);
                 try {
-                    msgResult += variableValue.toString().replace(/"/g, "\\\"");
+                    msgResult += variableValue.toString().replace(/[\\]?"/g, "\\\"");
                 } catch (e) {
                     msgResult += variableValue;
                 }
