@@ -118,6 +118,11 @@ export class DateUtil {
                 case DatePatternsEnum.PATTERN_MILLISECOND: // S
                     milliSecond = date.getMilliseconds();
                     replacement = milliSecond + "";
+                    if (replacement.length === 1) {
+                        replacement = "00" + replacement;
+                    } else if (replacement.length === 2) {
+                        replacement = "0" + replacement;
+                    }
                     break;
                 case DatePatternsEnum.PATTERN_DAY_OF_WEEK: // E
                     days = date.getDay();
@@ -165,6 +170,83 @@ export class DateUtil {
             }
             return replacement;
         });
+    }
+    /**
+     * 将字符串转换成日期
+     * @param {string} datestr 日期时间字符串
+     * @param {string} format 格式化字符串
+     * yyyy:年份(如2019);
+     * yy:短年份(如19);
+     * MM:月份;
+     * dd:日子;
+     * HH:小时(0~23);
+     * hh:小时(0~11);
+     * mm:分钟;
+     * ss:秒;
+     * S:毫秒;
+     * @returns {Date} 日期时间对象
+     */
+    public static parse(datestr: string, format = "yyyy-MM-dd HH:mm:ss") {
+        if (!datestr) {
+            return null;
+        }
+        const fullYearPos = format.indexOf("yyyy");
+        const shortYearPos = format.indexOf("yy");
+        const monthPos = format.indexOf("MM");
+        const dayhPos = format.indexOf("dd");
+        const hourPos = format.indexOf("hh");
+        const HOURPos = format.indexOf("HH");
+        const minutePos = format.indexOf("mm");
+        const secondsPos = format.indexOf("ss");
+        const mSecondsPos = format.indexOf("S");
+
+        const fullYear: string = fullYearPos !== -1 ? datestr.substring(fullYearPos, fullYearPos + 4) : null;
+        const shortYear: string = shortYearPos !== -1 ? datestr.substring(shortYearPos, shortYearPos + 2) : null;
+        const month: string = monthPos !== -1 ? datestr.substring(monthPos, monthPos + 2) : null;
+        const day: string = dayhPos !== -1 ? datestr.substring(dayhPos, dayhPos + 2) : null;
+        const minute: string = minutePos !== -1 ? datestr.substring(minutePos, minutePos + 2) : null;
+        const seconds: string = secondsPos !== -1 ? datestr.substring(secondsPos, secondsPos + 2) : null;
+        const mSeconds: string = mSecondsPos !== -1 ? datestr.substring(mSecondsPos, mSecondsPos + 3) : null;
+
+        const hour = hourPos !== -1 ? datestr.substring(hourPos, hourPos + 2) : null;
+        const HOUR = HOURPos !== -1 ? datestr.substring(HOURPos, HOURPos + 2) : null;
+
+        const d4 = /^\d{4}$/;
+        const d2 = /^\d{2}$/;
+        const d3 = /^\d{1,3}$/;
+        const aa = /^[ap]m$/;
+        if (
+            !(!fullYear || d4.test(fullYear)) ||
+            !(!shortYear || d2.test(shortYear)) ||
+            !(!month || d2.test(month)) ||
+            !(!day || d2.test(day)) ||
+            !(!hour || d2.test(hour)) ||
+            !(!HOUR || d2.test(HOUR)) ||
+            !(!minute || d2.test(minute)) ||
+            !(!seconds || d2.test(seconds)) ||
+            !(d3.test(mSeconds))
+        ) {
+            return null;
+        }
+
+        const fullYearI = +(fullYear ? fullYear : (shortYear ? "20" + shortYear : "1970"));
+        const monthI = +(month ? month : "1");
+        const dayI = +(day ? day : "1");
+        const hourI = +(hour ? hour : "0");
+        const HOURI = +(HOUR ? HOUR : hour);
+        const minuteI = +(minute ? minute : "0");
+        const secondsI = +(seconds ? seconds : "0");
+        const mSecondsI = +(mSeconds ? mSeconds : "0");
+
+        const date = new Date();
+        date.setFullYear(fullYearI);
+        date.setMonth(monthI - 1);
+        date.setDate(dayI);
+        date.setHours(HOURI);
+        date.setMinutes(minuteI);
+        date.setSeconds(secondsI);
+        date.setMilliseconds(mSecondsI);
+        return date;
     }
     /**
      * 方法功能描述: 计算一个日期是当年的第几天
