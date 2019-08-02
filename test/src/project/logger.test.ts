@@ -1,5 +1,4 @@
-import {Configuration} from "../../../src/core/Configuration";
-import {LoggerFactory} from "../../../src/core/LoggerFactory";
+import {Configuration, LoggerFactory} from "../../../src";
 
 class A {
     public toString(): string {
@@ -11,7 +10,7 @@ describe("测试 logger.test", () => {
         Configuration.configure(require("./typeslf4.json"));
         const logger = LoggerFactory.getLogger("type-slf4.test.project.logger");
         logger.info("211111")
-        logger.trace("111A {}, {}, {}, {}, {}, {}, {}", 1, "sssd", {}, new A(), true, null);
+        logger.trace("111A {}, {}, {}, {}, {}, {}, {}, {}", 1, "sssd", {}, new A(), true, null, JSON.stringify({"a": "1"}));
         logger.info("B111\n333\n");
         logger.error("C1112, [{}]", new Error("11"), 11, 223, 44);
     });

@@ -11,7 +11,7 @@
       "class": "RollingFileAppender",
       "layout": {
         "class": "JsonLayout",
-        "pattern": "createTime:%date{yyyy-MM-dd HH:mm:ss.S}, level:%level,className:%class,methodName:%method,line:%line,row:%row,message:%msg,file:%file,error:%error"
+        "pattern": "createTime:%date{yyyy-MM-dd HH:mm:ss.S}, level:%level,className:%class,methodName:%method,line:%line,row:%row,message:%msg,file:%file,stack:%stack"
       },
       "appenderExt": {
         "fileNamePattern" : "@logs/application/application-%date{yyyy-MM-dd}",

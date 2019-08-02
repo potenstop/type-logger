@@ -195,8 +195,8 @@ export class StackAnalysisUtil {
             if (match && match.length === 3) {
                 stackType.file = match[1];
                 const split = match[2].split(":");
-                stackType.line = split[1];
-                stackType.row = split[2];
+                stackType.line = isNaN(split[1]) ? 0 : +split[1];
+                stackType.row = isNaN(split[2]) ? 0 : +split[2];
                 stackType.pathType = path.isAbsolute(stackType.file) ? StackTypePathTypeEnum.LOCAL : StackTypePathTypeEnum.SYSTEM;
             }
             if (pathType === StackTypePathTypeEnum.ALL || stackType.pathType === pathType) {

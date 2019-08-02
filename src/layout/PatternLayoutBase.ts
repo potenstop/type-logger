@@ -33,7 +33,7 @@ export class PatternLayoutBase implements ILayout {
                 row: logMessage.stackType.row,
                 msg: logMessage.data,
                 n: "\n",
-                error: logMessage.error,
+                stack: logMessage.error,
             });
         } catch (e) {
             return e.message + e.stack;
@@ -48,6 +48,8 @@ export class PatternLayoutBase implements ILayout {
         let msgResult = "";
         let currentIndex = 0;
         let ofI = 0;
+        // 上一次循环是否有引号
+        let perHasMark = true;
         for (const v of matchSet) {
             ofI ++;
 
@@ -82,14 +84,23 @@ export class PatternLayoutBase implements ILayout {
             if (typeof variableValue === "string" && variableKey !== "n") {
                 variableValue = variableValue.replace(/(\r\n)|(\n)/g, "\\n");
             }
-            msgResult += str.substring(currentIndex, v.index);
-            if (variableValue === null) {
+            // msgResult += str.substring(currentIndex, v.index);
+            if (!perHasMark) {
+                currentIndex++;
+            }
+            if (variableValue === null || variableValue === undefined) {
+                perHasMark = false;
+                msgResult += str.substring(currentIndex, v.index - 1);
                 msgResult += "null";
-            } else if (variableValue === undefined) {
-                msgResult += "undefined";
+            } else if (typeof variableValue === "number" || typeof variableValue === "boolean") {
+                perHasMark = false;
+                msgResult += str.substring(currentIndex, v.index - 1);
+                msgResult += variableValue;
             } else {
+                perHasMark = true;
+                msgResult += str.substring(currentIndex, v.index);
                 try {
-                    msgResult += variableValue.toString();
+                    msgResult += variableValue.toString().replace(/"/g, "\\\"");
                 } catch (e) {
                     msgResult += variableValue;
                 }
@@ -97,6 +108,9 @@ export class PatternLayoutBase implements ILayout {
             currentIndex = v.index + v.value.length;
         }
         if (currentIndex < str.length) {
+            if (!perHasMark) {
+                currentIndex++;
+            }
             msgResult += str.substring(currentIndex, str.length);
         }
         return msgResult;
