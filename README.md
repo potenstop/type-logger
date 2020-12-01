@@ -11,7 +11,7 @@ type-slf4支持的特性：
  `npm install type-slf4 --save`
 ## 快速配置
 resources/typelogger.json(会自动加载该路径的json文件) 也可以手动加载Configuration.configure(require("./typeslf4.json"));
-- @为当前项目的目录
+- @为rootDir 默认位项目的目录Configuration.setRootDir(path)手动设置目录   
 ```json
 {
   "appenders": [
@@ -65,4 +65,5 @@ logger.debug("111");
 - 0.0.1 支持格式化输出日志
 - 0.0.2 项目改名
 - 0.0.3 支持按日志分割输出
+- 0.0.8 设置项目目录
 

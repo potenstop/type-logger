@@ -22,7 +22,7 @@ interface IFileAppenderExt {
 }
 export class RollingFileAppender implements IAppender {
     private appender: Appender;
-    constructor(appender: Appender) {
+    constructor(appender: Appender, rootDir?: string) {
         this.appender = appender;
         if (!appender.appenderExt) {
             throw new Error(`appenderName(${appender.name}) not found appenderExt`);
@@ -31,7 +31,10 @@ export class RollingFileAppender implements IAppender {
         if (!appenderExt.fileNamePattern) {
             throw new Error(`appenderName(${appender.name}).appenderExt.fileNamePattern is null`);
         }
-        appenderExt.fileNamePattern = path.join(appenderExt.fileNamePattern.replace(/^@/, process.cwd() + "/"));
+        if (!rootDir) {
+            rootDir = process.cwd();
+        }
+        appenderExt.fileNamePattern = path.join(appenderExt.fileNamePattern.replace(/^@/, rootDir + "/"));
         appenderExt.fileNamePattern += ".log";
         const dir = path.dirname(appenderExt.fileNamePattern);
         // 判断目录是否存在 不存在则创建 创建失败抛出异常

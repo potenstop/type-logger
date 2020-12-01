@@ -14,6 +14,7 @@ describe("测试 RollingFileAppender.test", () => {
            fileNamePattern : "@logs/application/application-%date{yyyy-MM-dd}",
            maxFileSize: "100KB",
         }} as any).write("444\n");
+        console.log()
         new RollingFileAppender({
             name: "APPLICATION",
             class: "RollingFileAppender",
@@ -24,6 +25,6 @@ describe("测试 RollingFileAppender.test", () => {
             appenderExt: {
                 fileNamePattern : "@logs/database/database-%date{yyyy-MM-dd}",
                 maxFileSize: "100KB",
-            }} as any).write("444\n");
+            }} as any, path.join(__dirname, '../../../')).write("444\n");
     });
 });

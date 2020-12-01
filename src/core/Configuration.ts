@@ -35,7 +35,7 @@ defaultAppender.layout = new Layout();
 defaultAppender.layout.class = "type-slf4.layout.SimpleLayout";
 defaultConfig.appenders = [defaultAppender];
 
-const appenderMaps = new Map<string, new (appender: Appender) => IAppender>()
+const appenderMaps = new Map<string, new (appender: Appender, rootDir: string) => IAppender>()
     .set("ConsoleAppender", ConsoleAppender)
     .set("DailyRollingFileAppender", DailyRollingFileAppender)
     .set("RollingFileAppender", RollingFileAppender);
@@ -48,6 +48,7 @@ export class Configuration {
     public config: Config;
     public appenderRealizeMap: Map<string, Appender>;
     private rootLogger: Logger;
+    private rootDir: string;
     constructor(config: Config) {
         this.config = config;
         this.check();
@@ -67,6 +68,9 @@ export class Configuration {
 
     public static getConfigure(): Configuration {
         return Configuration.configuration;
+    }
+    public static setRootDir(rootDir: string): void {
+        Configuration.configuration.rootDir = rootDir
     }
     /**
      * 方法功能描述: 检查配置
@@ -91,7 +95,7 @@ export class Configuration {
                     throw new Error(prefix + `config.appender(${app.name}) class not in ["ConsoleAppender"]`);
                 } else {
                     const objectType = appenderMaps.get(app.class);
-                    app.classObject = new objectType(app);
+                    app.classObject = new objectType(app, this.rootDir);
                 }
                 if (!app.layout) {
                     throw new Error(prefix + `config.appender(${app.name}) layout is undefined`);
