@@ -44,6 +44,7 @@ export class RollingFileAppender implements IAppender {
                 throw new Error("not is dir");
             }
         } catch (e) {
+
             fs.mkdirSync(dir);
         }
         // 检查maxFileSize是否正确

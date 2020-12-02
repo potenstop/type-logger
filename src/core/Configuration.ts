@@ -49,8 +49,9 @@ export class Configuration {
     public appenderRealizeMap: Map<string, Appender>;
     private rootLogger: Logger;
     private rootDir: string;
-    constructor(config: Config) {
+    constructor(config: Config, rootDir?: string) {
         this.config = config;
+        this.rootDir = rootDir;
         this.check();
         this.rootLogger = new Logger();
         this.rootLogger.name = "*";
@@ -63,8 +64,7 @@ export class Configuration {
      */
     public static configure(config: Config, rootDir?: string) {
         if (!config) { config = defaultConfig; }
-        Configuration.configuration = new Configuration(config);
-        Configuration.configuration.rootDir = rootDir;
+        Configuration.configuration = new Configuration(config, rootDir);
     }
 
     public static getConfigure(): Configuration {
