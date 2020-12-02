@@ -5,9 +5,10 @@ class A {
         return "A";
     }
 }
+import * as path from 'path'
 describe("测试 logger.test", () => {
     it("exec", async () => {
-        Configuration.configure(require("./typeslf4.json"));
+        Configuration.configure(require("./typeslf4.json"), path.join(__dirname, '../../../logs'));
         const logger = LoggerFactory.getLogger("type-slf4.test.project.logger");
         logger.info("211111")
         logger.trace("111A {}, {}, {}, {}, {}, {}, {}, {}\"222", 1, "sssd", {}, new A(), true, null, JSON.stringify({"a": "1"}));

@@ -61,16 +61,14 @@ export class Configuration {
     /**
      * 加载配置 json格式
      */
-    public static configure(config: Config) {
+    public static configure(config: Config, rootDir?: string) {
         if (!config) { config = defaultConfig; }
         Configuration.configuration = new Configuration(config);
+        Configuration.configuration.rootDir = rootDir;
     }
 
     public static getConfigure(): Configuration {
         return Configuration.configuration;
-    }
-    public static setRootDir(rootDir: string): void {
-        Configuration.configuration.rootDir = rootDir
     }
     /**
      * 方法功能描述: 检查配置
